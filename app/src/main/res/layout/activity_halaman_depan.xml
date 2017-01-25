@@ -8,9 +8,11 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="lemaries.religi.wazifahapp.HalamanDepan">
+    tools:context="lemaries.religi.wazifahapp.HalamanDepan"
+    android:background="@color/dark">
 
     <ImageButton
+        android:id="@+id/btnPrefereces"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -28,20 +30,28 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:text="Wazifah"
-            android:textSize="50dp" />
+            android:textSize="50dp"
+            android:textColor="@color/white"/>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnSugra"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="sugra" />
+            android:onClick="intentSugra"
+            android:text="sugra"
+            android:textColor="@color/dark"
+            android:background="@color/white"/>
 
         <Button
+            android:id="@+id/btnKubra"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="kubra" />
+            android:onClick="intentKubra"
+            android:text="kubra"
+            android:textColor="@color/dark"
+            android:background="@color/white"/>
 
     </LinearLayout>
 
