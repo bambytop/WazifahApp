@@ -13,3 +13,8 @@ WazifahApp: Aplikasi Al-Ma'surat.
 ### UNCATEGORIZED
 1. Dokumentasi (0%)
 2. Tutorial (0%)
+
+### LATEST RELEASE
+1. https://github.com/otakbeku/WazifahApp/releases/tag/1.0.2
+
+
