@@ -23,7 +23,7 @@ import java.io.OutputStream;
 public class Databasehelper extends SQLiteOpenHelper {
 
     String DB_PATH = null;
-    private static String DB_NAME = "DB_ASSETS.db";
+    private static String DB_NAME = "DB_ASSETS_1.db";
     private SQLiteDatabase myDB;
     private final Context context;
 

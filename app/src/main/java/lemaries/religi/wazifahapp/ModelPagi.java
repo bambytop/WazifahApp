@@ -6,7 +6,7 @@ package lemaries.religi.wazifahapp;
 
 public class ModelPagi {
     private int ID_DOA;
-    private String NAMA,BACAAN;
+    private String NAMA, BACAAN;
 
     public ModelPagi() {
     }
@@ -40,4 +40,6 @@ public class ModelPagi {
     public void setBACAAN(String BACAAN) {
         this.BACAAN = BACAAN;
     }
+
+
 }

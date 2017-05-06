@@ -34,6 +34,7 @@
             android:onClick="onClickTextChanged"
             android:text="Mulai"
             android:textSize="25sp"
+            android:padding="10dp"
             android:textColor="@color/white"/>
 
     </LinearLayout>

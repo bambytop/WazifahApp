@@ -22,9 +22,15 @@ public class Controller {
     public Controller(Context context) {
         dbHelper = new Databasehelper(context);
         this.tempModelPagi = new ArrayList<>();
+        this.tempModelSugra = new ArrayList<>();
     }
 
-    private ArrayList<ModelPagi> getBacaanPagi() {
+    /**
+     * Methodnya digunakan untuk mengembalikan arraylist dari bacaan pagi
+     *
+     * @return
+     */
+    private void getBacaanPagi() {
         try {
             dbHelper.createDataBase();
         } catch (IOException ioe) {
@@ -35,16 +41,19 @@ public class Controller {
         } catch (SQLiteException sqle) {
             throw sqle;
         }
-        c_pagi = dbHelper.query("Tabel_Pagi", null, null, null, null, null, null);
+        c_pagi = dbHelper.query("Pagi", null, null, null, null, null, null);
         if (c_pagi.moveToFirst()) {
             do {
                 this.tempModelPagi.add(new ModelPagi(c_pagi.getInt(0), c_pagi.getString(1), c_pagi.getString(2)));
                 Log.i("DATA MASUK", "ID_DOA: " + c_pagi.getInt(0) + " NAMA: " + c_pagi.getString(1) + " BACAAN: " + c_pagi.getString(2));
             } while (c_pagi.moveToNext());
         }
-        return this.tempModelPagi;
+//        return this.tempModelPagi;
     }
 
+    /**
+     * Method untuk mengambil dari database
+     */
     private void getSugraCounter() {
         try {
             dbHelper.createDataBase();
@@ -56,7 +65,7 @@ public class Controller {
         } catch (SQLiteException sqle) {
             throw sqle;
         }
-        c_sugra = dbHelper.query("Tabel_Sugra", null, null, null, null, null, null);
+        c_sugra = dbHelper.query("Sugra", null, null, null, null, null, null);
         if (c_sugra.moveToFirst()) {
             do {
                 this.tempModelSugra.add(new ModelSugra(c_sugra.getInt(0), c_sugra.getInt(1), c_sugra.getInt(2)));
@@ -66,10 +75,43 @@ public class Controller {
 //        return this.tempModelSugra;
     }
 
-    public void getWZHSugraPagi() {
-        ArrayList<ModelPagi> tempPagi = this.getBacaanPagi();
+    public ArrayList<String> getWZHSugraPagi() {
+        this.getBacaanPagi();
+        this.getSugraCounter();
+        ArrayList<String> tempPagi = new ArrayList<>();
+
+        int counter = 0;
+        for (ModelPagi entryPagi : this.tempModelPagi
+                ) {
+            Log.i("ID_DOA", entryPagi.getID_DOA() + "");
+            for (int i = 0; i < tempModelSugra.size(); i++) {
+                if (entryPagi.getID_DOA() == tempModelSugra.get(i).getFK_ID_DOA()) {
+                    Log.i("DATA_BARU: ", entryPagi.getID_DOA() + ", " + tempModelSugra.get(i).getFK_ID_DOA());
+                    tempPagi.add(counter, entryPagi.getBACAAN());
+                    counter++;
+                }
+            }
+//            if (counter <= tempModelSugra.size()) {
+//                if (entryPagi.getID_DOA() == tempModelSugra.get(counter).getFK_ID_DOA()) {
+//                    Log.i("DATA_BARU: ", entryPagi.getID_DOA()+", "+tempModelSugra.get(counter).getFK_ID_DOA());
+//                    tempPagi.add(counter, entryPagi.getBACAAN());
+//                }
+//            }
+//
+//            counter++;
+        }
+        return tempPagi;
+    }
+
+    public int[] getCounterQuery() {
+        int[] counterQuery = new int[this.tempModelSugra.size()];
+
+        for (int i = 0; i < counterQuery.length; i++) {
+            counterQuery[i] = 1;
+        }
 
 
+        return counterQuery;
     }
 
 }
