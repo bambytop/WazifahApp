@@ -2,12 +2,14 @@ package lemaries.religi.wazifahapp;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.Time;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,12 +33,15 @@ public class MainActivity extends AppCompatActivity {
         controller = new Controller(this.getApplicationContext());
         if (bundle != null) {
             if (bundle.getString("opsi").equalsIgnoreCase("sugra")) {
-                textBaca = controller.getWZHSugraPagi();
-                counterQuery = controller.getCounterQuery();
+                textBaca = controller.getWZHSugra(bundle.getString("waktu"));
+                counterQuery = controller.getCounterQuerySugra();
             } else if (bundle.getString("opsi").equalsIgnoreCase("kubra")) {
-
+                textBaca = controller.getWZHKubra(bundle.getString("waktu"));
+                counterQuery = controller.getCounterQueryKubra();
             }
         }
+        int hours = new Time(System.currentTimeMillis()).getHours();
+        Log.i("WAKTU", "waktu: ");
 
         //Instansiasi Content
         textDua = (TextView) findViewById(R.id.textDua);
@@ -61,12 +66,12 @@ public class MainActivity extends AppCompatActivity {
             if (counter < counterQuery[duaIndex]) {
 
                 textDua.setText(textBaca.get(duaIndex));
-                if(counter!=0){
+                if (counter != 0) {
                     textCounter.setText("x" + (counter + 1));
                 }
                 counter++;
                 Log.i("Dalam counter:", Integer.toString(counter));
-            } else if (duaIndex+1  == counterQuery.length) {
+            } else if (duaIndex + 1 == counterQuery.length) {
                 Toast.makeText(getApplicationContext(), "Anda sudah diujung", Toast.LENGTH_SHORT).show();
             } else if (counter == counterQuery[duaIndex]) {
 
@@ -83,4 +88,36 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    // Balik tekan 2 kali
+    boolean doubleBackToExitPressedOnce = false;
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        if(duaIndex == 0) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Tekan kembali lagi untuk ke halaman utama", Toast.LENGTH_SHORT).show();
+        if (duaIndex != 0) {
+            counter = 0;
+            duaIndex -= 1;
+            textDua.setText(textBaca.get(duaIndex));
+        }
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
+    }
+
 }
