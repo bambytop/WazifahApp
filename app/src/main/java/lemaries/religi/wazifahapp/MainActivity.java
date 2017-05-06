@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 counter++;
                 Log.i("Dalam counter:", Integer.toString(counter));
             } else if (duaIndex + 1 == counterQuery.length) {
-                Toast.makeText(getApplicationContext(), "Anda sudah diujung", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Alhamdulillah, Anda sudah selesai", Toast.LENGTH_SHORT).show();
             } else if (counter == counterQuery[duaIndex]) {
 
                 textCounter.setText("");

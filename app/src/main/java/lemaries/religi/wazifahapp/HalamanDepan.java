@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 @TargetApi(Build.VERSION_CODES.N)
 public class HalamanDepan extends AppCompatActivity {
@@ -25,7 +24,7 @@ public class HalamanDepan extends AppCompatActivity {
         setContentView(R.layout.activity_halaman_depan);
 
         waktu_ini = calendar.get(Calendar.HOUR_OF_DAY);
-        Toast.makeText(this, "waktu: "+waktu_ini, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "waktu: "+waktu_ini, Toast.LENGTH_SHORT).show();
 
 
         //Instansiasi
